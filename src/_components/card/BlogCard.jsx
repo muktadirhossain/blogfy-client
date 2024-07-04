@@ -4,7 +4,7 @@ import { BASE_URL } from '../../assets/API'
 const BlogCard = ({ title, content, images, categoryId , authorId}) => {
     return (
         <div className='card border border-slate-300'>
-            <img crossorigin="anonymous" src={`${BASE_URL}${images[0]}`} className='h-60' alt={title}  />
+            <img crossOrigin="anonymous" src={`${BASE_URL}${images[0]}`} className='h-60' alt={title}  />
             <h2>{title}</h2>
             <p>{content}</p>
             <p>Category: {categoryId?.categoryName}</p>

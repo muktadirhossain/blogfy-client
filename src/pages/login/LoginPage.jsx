@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import API from '../../assets/API'
 import toast from 'react-hot-toast'
+import CONSTANTS from '../../assets/constants'
+import useAuth from '../../hook/useAuth'
 
 const LoginPage = () => {
-
+    const {setAuth} = useAuth()
     const {
         register,
         handleSubmit,
@@ -16,7 +18,7 @@ const LoginPage = () => {
     const navigate = useNavigate()
     // console.log(errors)
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
 
         try {
             // await API call to register user
@@ -27,8 +29,9 @@ const LoginPage = () => {
               console.log(res.data)
               if (res.data.status) {
                 toast.success("Login successful!")
-                localStorage.setItem('authToken', res?.data?.token)
-                navigate('/')
+                setAuth({token: res.data.token})
+                localStorage.setItem(CONSTANTS?.AUTH_TOKEN, res?.data?.token)
+                navigate('/dashboard')
               } else {
                 toast.error("Sorry, something went wrong")
               }

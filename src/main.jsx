@@ -12,6 +12,16 @@ import RegisterPage from './pages/register/RegisterPage.jsx';
 
 // Loader Functions::
 import { getAllBlogs } from './lib/fetchBlogs.js';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import PrivetRoute from './pages/routes/PrivetRoute.jsx';
+import Dashboard from './pages/dashboard/Dashboard.jsx';
+import AuthProvider from './provider/AuthProvider.jsx';
+import CategoryPage from './pages/dashboard/CategoryPage.jsx';
+import BlogPage from './pages/dashboard/BlogPage.jsx';
+import ProfilePage from './pages/dashboard/ProfilePage.jsx';
+// import AuthProvider from './provider/AuthProvider.jsx';
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -22,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-        loader: getAllBlogs,
+        // loader: getAllBlogs,
       },
       {
         path: "/about",
@@ -47,11 +57,37 @@ const router = createBrowserRouter([
 
     ]
   },
+  {
+    path:'/dashboard',
+    element: <PrivetRoute  />,
+    children: [
+      {
+        path: "/dashboard/home",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/dashboard/blogs",
+        element: <BlogPage />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <ProfilePage />,
+      },
+    ]
+  }
 
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
