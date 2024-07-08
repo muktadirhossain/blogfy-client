@@ -3,7 +3,7 @@ import { AuthContext } from '../context'
 import CONSTANTS from '../assets/constants'
 
 const token = localStorage.getItem(CONSTANTS?.AUTH_TOKEN)
-console.log("TEST", token)
+// console.log("TEST", token)
 
 const AuthProvider = ({ children }) => {
     // const [auth, setAuth] = useState({})

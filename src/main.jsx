@@ -19,6 +19,7 @@ import AuthProvider from './provider/AuthProvider.jsx';
 import CategoryPage from './pages/dashboard/CategoryPage.jsx';
 import BlogPage from './pages/dashboard/BlogPage.jsx';
 import ProfilePage from './pages/dashboard/ProfilePage.jsx';
+import CreateCategory from './pages/dashboard/CreateCategory.jsx';
 // import AuthProvider from './provider/AuthProvider.jsx';
 
 const queryClient = new QueryClient()
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:'/dashboard',
+
     element: <PrivetRoute  />,
     children: [
       {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/category",
         element: <CategoryPage />,
+      },
+      {
+        path: "/dashboard/category/create",
+        element: <CreateCategory />,
       },
       {
         path: "/dashboard/blogs",

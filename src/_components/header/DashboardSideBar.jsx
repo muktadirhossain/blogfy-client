@@ -1,31 +1,55 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { cn } from '../../utils/cn'
+import { Camera, LayoutGrid , Tag,Newspaper, UserRound} from 'lucide-react';
 
 const DashboardSideBar = () => {
-  return (
-    
-      <ul className='menu bg-base-200 rounded-box min-h-screen w-56'>
-        <li>
-          <NavLink className={({ isPending, isActive }) => `${(isActive) ? 'active font-bold' : ""} my-1`} to='/dashboard/home'>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to='/dashboard/category'
-            className={({ isPending, isActive }) => `${isActive ? 'active font-bold' : ""} my-1 `}
-          >Category</NavLink>
-        </li>
-        <li>
-          <NavLink to='/dashboard/blogs'
-            className={({ isPending, isActive }) => `${isActive ? 'active font-bold' : ""} my-1`}
-          >Blogs</NavLink>
-        </li>
-        <li>
-          <NavLink to='/dashboard/profile'
-            className={({ isPending, isActive }) => `${isActive ? 'active font-bold' : ""} my-1`}
-          >Profile</NavLink>
-        </li>
+  const linkList = [
+    {
+      label: 'Dashboard',
+      to: '/dashboard/home',
+      exact: true,
+      icon: <LayoutGrid  className='text-white' size={24} />
 
-      </ul>
- 
+    },
+    {
+      label: 'Category',
+      to: '/dashboard/category',
+      exact: true,
+      icon: <Tag  className='text-white' size={24} />
+    },
+    {
+      label: 'Blogs',
+      to: '/dashboard/blogs',
+      exact: true,
+      icon: <Newspaper  className='text-white' size={24} />
+    },
+    {
+      label: 'Profile',
+      to: '/dashboard/profile',
+      exact: true,
+      icon: <UserRound  className='text-white' size={24} />
+    },
+  ]
+  return (
+
+    <ul className='menu menu-vertical bg-base-200 rounded-box w-56'>
+      {linkList.map((link) => (
+        <li key={link.to}>
+          <NavLink
+            className={({ isActive }) => cn('my-1', {
+              "active font-bold": isActive,
+            })}
+            to={link.to}
+            exact={link.exact}
+          >
+            {link.icon && <span>{link?.icon}</span>}
+            {link.label}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+
   )
 }
 
