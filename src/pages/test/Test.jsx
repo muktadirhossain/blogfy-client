@@ -100,7 +100,7 @@ const Test = () => {
                     </form>
                 </div>
             </div>
-            <HeadingText>Create Category</HeadingText>
+            {/* <HeadingText>Create Category</HeadingText>
             <div className="card bg-base-100 w-96 shadow-xl">
                 <div className="card-body">
                     <form >
@@ -122,7 +122,7 @@ const Test = () => {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

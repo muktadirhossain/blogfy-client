@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Link, Navigate, Outlet } from 'react-router-dom'
 import useAuth from '../../hook/useAuth'
 import DashboardSideBar from '../../_components/header/DashboardSideBar'
 import logo from '../../assets/logo.png'
@@ -15,11 +15,16 @@ const PrivetRoute = () => {
       {
         auth.token ?
           <main>
-            <nav className='flex justify-between items-center h-[50px] mx-5'>
-              {/* <div> */}
-              <img src={logo} className='h-10 w-10' alt="Blogfy_logo" />
+            <nav className='flex justify-between items-center h-[60px] mx-5'>
+              <div>
+                <Link to="/"
+                  className='flex justify-between items-center gap-x-2'
+                >
+                  <img src={logo} className='h-10 w-10' alt="Blogfy_logo" />
+                  <span className='font-mono'>Blogfy</span>
+                </Link>
+              </div>
               <LogOutButton />
-              {/* <button onClick={logoutHandler} className='btn btn-error'>Log Out</button> */}
             </nav>
             <div className='flex justify-between min-h-screen'>
               <aside>
@@ -32,7 +37,7 @@ const PrivetRoute = () => {
           </main> :
           <Navigate to='/login' />
       }
-      <Toaster/>
+      <Toaster />
     </div>
   )
 }

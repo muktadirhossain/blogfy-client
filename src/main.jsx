@@ -11,7 +11,7 @@ import Test from './pages/test/Test.jsx';
 import RegisterPage from './pages/register/RegisterPage.jsx';
 
 // Loader Functions::
-import { getAllBlogs } from './lib/fetchBlogs.js';
+import { getAllBlogs, getBlogById } from './lib/fetchBlogs.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PrivetRoute from './pages/routes/PrivetRoute.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
@@ -20,6 +20,8 @@ import CategoryPage from './pages/dashboard/CategoryPage.jsx';
 import BlogPage from './pages/dashboard/BlogPage.jsx';
 import ProfilePage from './pages/dashboard/ProfilePage.jsx';
 import CreateCategory from './pages/dashboard/CreateCategory.jsx';
+import CreateBlogPage from './pages/dashboard/CreateBlogPage.jsx';
+import UpdateBlogPage from './pages/dashboard/UpdateBlogPage.jsx';
 // import AuthProvider from './provider/AuthProvider.jsx';
 
 const queryClient = new QueryClient()
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
 
-    element: <PrivetRoute  />,
+    element: <PrivetRoute />,
     children: [
       {
         path: "/dashboard/home",
@@ -77,6 +79,15 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/blogs",
         element: <BlogPage />,
+      },
+      {
+        path: "/dashboard/blogs/create",
+        element: <CreateBlogPage />,
+      },
+      {
+        path: "/dashboard/blogs/update/:blogId",
+        element: <UpdateBlogPage />,
+        loader: getBlogById
       },
       {
         path: "/dashboard/profile",

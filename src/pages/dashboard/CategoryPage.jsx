@@ -2,7 +2,7 @@ import HeadingText from '../../_components/typography/HeadingText'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllCategories } from '../../lib/fetchCategory'
 import { Link } from 'react-router-dom'
-import { Trash2 } from 'lucide-react'
+import { PlusIcon, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import API from '../../assets/API'
@@ -11,8 +11,8 @@ import useAuth from '../../hook/useAuth'
 const CategoryPage = () => {
 
   const { auth } = useAuth()
-   // Access the client
-   const queryClient = useQueryClient()
+  // Access the client
+  const queryClient = useQueryClient()
 
   const { data: categories, isLoading, error } = useQuery({
     queryKey: ['categories'],
@@ -20,7 +20,7 @@ const CategoryPage = () => {
   })
 
   const handelDelete = async (id) => {
-    
+
     try {
       const res = await axios.delete(`${API.DELETE_CATEGORY + id}`, {
         headers: {
@@ -28,12 +28,12 @@ const CategoryPage = () => {
           'Authorization': `Bearer ${auth?.token}`,
         }
       })
-      console.log(id,res, "del")
-      if(res.data.status){
+      console.log(id, res, "del")
+      if (res.data.status) {
         toast.success("Deleted Successfully")
         queryClient.invalidateQueries({ queryKey: ['categories'] })
       }
-      
+
     } catch (error) {
       console.log(error)
       toast.error(error.message)
@@ -43,9 +43,17 @@ const CategoryPage = () => {
   return (
     <div className='min-h-[calc(100vh - 40px)] '>
       <HeadingText>Create Category</HeadingText>
-      <button className="btn btn-info" >
-        <Link to='/dashboard/category/create'>CreateCategory</Link>
-      </button>
+      <div className='flex justify-end'>
+
+        <button className="btn btn-info" >
+          <Link
+          className='flex items-center justify-between gap-x-2'
+          to='/dashboard/category/create'>
+            <PlusIcon />
+            <span>CreateCategory</span>
+          </Link>
+        </button>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">
@@ -62,12 +70,6 @@ const CategoryPage = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-            </tr>
             {
               categories?.map((category, Idx) => (
                 <tr key={categories?._id}>
