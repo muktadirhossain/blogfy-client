@@ -8,5 +8,7 @@ const API = {
     DELETE_CATEGORY: `${BASE_URL}/api/category/delete/`,
     POST_CATEGORY: `${BASE_URL}/api/category`,
     POST_BLOG_POST: `${BASE_URL}/api/blog`,
+    GET_USER_DATA: `${BASE_URL}/api/users`,
+    CHANGE_PASSWORD: `${BASE_URL}/api/users/change-password`
 }
 export default API;

@@ -8,26 +8,22 @@ const DashboardSideBar = () => {
     {
       label: 'Dashboard',
       to: '/dashboard/home',
-      exact: true,
       icon: <LayoutGrid  className='text-white' size={24} />
 
     },
     {
       label: 'Category',
       to: '/dashboard/category',
-      exact: true,
       icon: <Tag  className='text-white' size={24} />
     },
     {
       label: 'Blogs',
       to: '/dashboard/blogs',
-      exact: true,
       icon: <Newspaper  className='text-white' size={24} />
     },
     {
       label: 'Profile',
       to: '/dashboard/profile',
-      exact: true,
       icon: <UserRound  className='text-white' size={24} />
     },
   ]

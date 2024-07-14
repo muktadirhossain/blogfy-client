@@ -13,6 +13,7 @@ import RegisterPage from './pages/register/RegisterPage.jsx';
 // Loader Functions::
 import { getAllBlogs, getBlogById } from './lib/fetchBlogs.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import PrivetRoute from './pages/routes/PrivetRoute.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
 import AuthProvider from './provider/AuthProvider.jsx';
@@ -100,10 +101,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AuthProvider>
+      </AuthProvider>
+      {/* Dev Tool:: */}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )

@@ -26,11 +26,19 @@ const CreateBlogPage = () => {
             newFormData.append('content', formData.content)
             newFormData.append('tags', formData.tags)
             newFormData.append('categoryId', formData.categoryId)
-            newFormData.append('img', formData.img[0])
+            // newFormData.append('img', formData.img[0])
+
+            for (let i = 0; i < formData?.img?.length; i++) {
+                const element = formData?.img[i];
+                // console.log(element)
+                newFormData.append('img', element)
+            }
+
+            // console.log(formData.img)
 
             // for (let item of formData.img) {
             //     console.log(item)
-            //     newFormData.append('img', formData.img[item])
+            //     newFormData.append('img', item)
             // }
 
             const res = await axios.post(API.POST_BLOG_POST, newFormData, {

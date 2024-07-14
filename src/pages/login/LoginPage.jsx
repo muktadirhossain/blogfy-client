@@ -29,9 +29,10 @@ const LoginPage = () => {
               console.log(res.data)
               if (res.data.status) {
                 toast.success("Login successful!")
-                setAuth({token: res.data.token})
-                localStorage.setItem(CONSTANTS?.AUTH_TOKEN, res?.data?.token)
-                navigate('/dashboard')
+                console.log(res?.data?.data._id)
+                setAuth({token: res.data.token, user: res?.data?.data._id})
+                localStorage.setItem(CONSTANTS?.AUTH_TOKEN, JSON.stringify({token: res.data.token, user: res?.data?.data._id}))
+                navigate('/dashboard/home')
               } else {
                 toast.error("Sorry, something went wrong")
               }

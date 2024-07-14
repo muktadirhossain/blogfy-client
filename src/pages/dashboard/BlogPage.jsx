@@ -1,31 +1,52 @@
 import { Edit, Eye, PlusIcon, Trash } from 'lucide-react'
 import HeadingText from '../../_components/typography/HeadingText'
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllBlogs } from '../../lib/fetchBlogs'
 import dayjs from 'dayjs'
+import axios from 'axios'
+import API from '../../assets/API'
+import toast from 'react-hot-toast'
+import useAuth from '../../hook/useAuth'
 
 const BlogPage = () => {
+  const { auth } = useAuth()
+  const queryClient = useQueryClient()
   const { data: blogs, isLoading, isError } = useQuery({
-    queryKey: ['blog'],
+    queryKey: ['blogs'],
     queryFn: getAllBlogs
 
   })
+
+  const deleteFn = async (id) => {
+    await axios.delete(`${API.GET_ALL_BLOGS}/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth?.token}`,
+      }
+    })
+  }
+
+  const mutation = useMutation({
+    mutationFn: deleteFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+      toast.success('Blog post deleted successfully');
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  })
+
+
+
   // console.log(blogs)
   if (isLoading) {
     return (
-      <div className='flex justify-center items-center min-h-[400px]'><p className="loading loading-ring loading-lg">Loading...</p></div>
+      <div className='flex justify-center items-center min-h-[400px]'>
+        <p className="loading loading-ring loading-lg">Loading...</p>
+      </div>
     )
-  }
-
-  // TODO:
-  const handelDelete = async (id) => {
-    // console.log(id, "DELETE")
-    try {
-
-    } catch (error) {
-
-    }
   }
 
 
@@ -80,7 +101,7 @@ const BlogPage = () => {
                     <Link to={`/dashboard/blogs/update/${blog?._id}`}>
                       <button className="btn btn-primary btn-sm"><Edit size={16} /></button>
                     </Link>
-                    <button onClick={() => handelDelete(blog?._id)} className="btn btn-error btn-sm"><Trash size={16} /></button>
+                    <button onClick={() => mutation.mutate(blog?._id)} className="btn btn-error btn-sm"><Trash size={16} /></button>
                   </div>
                 </td>
               </tr>))
